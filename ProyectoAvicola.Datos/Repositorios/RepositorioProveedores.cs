@@ -35,6 +35,18 @@ namespace ProyectoAvicola.Datos.Repositorios
             }
         }
 
+        public void AsignarGranjaAProveedor(int proveedorId, int granjaId)
+        {
+            using (var conn = new SqlConnection(cadenaConexion))
+            {
+                string query = @"
+                INSERT INTO Granja_Proveedor (ProveedorId, GranjaId)
+                VALUES (@ProveedorId, @GranjaId)";
+
+                conn.Execute(query, new { ProveedorId = proveedorId, GranjaId = granjaId });
+            }
+        }
+
         public void Borrar(int ProveedorId)
         {
             using (var conn = new SqlConnection(cadenaConexion))
@@ -81,6 +93,19 @@ namespace ProyectoAvicola.Datos.Repositorios
             return cantidad > 0;
         }
 
+        public bool ExisteRelacion(int proveedorId, int granjaId)
+        {
+            using (var conn = new SqlConnection(cadenaConexion))
+            {
+                string query = @"
+                SELECT COUNT(*)
+                FROM Granja_Proveedor
+                WHERE ProveedorId = @ProveedorId AND GranjaId = @GranjaId";
+
+                return conn.ExecuteScalar<int>(query, new { ProveedorId = proveedorId, GranjaId = granjaId }) > 0;
+            }
+        }
+
         public int GetCantidad()
         {
             int cantidad = 0;
@@ -90,6 +115,41 @@ namespace ProyectoAvicola.Datos.Repositorios
                 cantidad = conn.ExecuteScalar<int>(selectQuery);
             }
             return cantidad;
+        }
+
+        public int GetCantidadGranjasPorProveedor(int proveedorId)
+        {
+            using (var conn = new SqlConnection(cadenaConexion))
+            {
+                string query = @"SELECT COUNT(*)
+                FROM Granja_Proveedor
+                WHERE ProveedorId = @ProveedorId";
+                return conn.ExecuteScalar<int>(query, new { ProveedorId = proveedorId });
+            }
+        }
+
+        public int GetCantidadProveedoresPorGranja(int granjaId)
+        {
+            using (var conn = new SqlConnection(cadenaConexion))
+            {
+                string query = "SELECT COUNT(*) AS NumeroDeProveedores FROM Granja_Proveedor WHERE GranjaId = @GranjaId";
+                int numeroDeProveedores = conn.ExecuteScalar<int>(query, new { GranjaId = granjaId });
+                return numeroDeProveedores;
+            }
+        }
+
+        public List<Granja> GetGranjasPorProveedor(int proveedorId)
+        {
+            using (var conn = new SqlConnection(cadenaConexion))
+            {
+                string query = @"
+                SELECT g.GranjaId, g.NombreGranja
+                FROM Granja g
+                JOIN Granja_Proveedor gp ON g.GranjaId = gp.GranjaId
+                WHERE gp.ProveedorId = @ProveedorId";
+
+                return conn.Query<Granja>(query, new { ProveedorId = proveedorId }).ToList();
+            }
         }
 
         public List<ProveedorDto> GetProveedores()
@@ -117,6 +177,17 @@ namespace ProyectoAvicola.Datos.Repositorios
                 proveedor = conn.QuerySingleOrDefault<Proveedor>(selectQuery, new { proveedorId });
             }
             return proveedor;
+        }
+
+        public void QuitarGranjaDeProveedor(int proveedorId, int granjaId)
+        {
+            using (var conn = new SqlConnection(cadenaConexion))
+            {
+                string query = @"
+                DELETE FROM Granja_Proveedor
+                WHERE ProveedorId = @ProveedorId AND GranjaId = @GranjaId";
+                conn.Execute(query, new { ProveedorId = proveedorId, GranjaId = granjaId });
+            }
         }
     }
 }

@@ -94,6 +94,16 @@ namespace ProyectoAvicola.Datos.Repositorios
             return cantidad;
         }
 
+        public int GetCantidadEmpleadosPorGranja(int granjaId)
+        {
+            using (var conn = new SqlConnection(cadenaConexion))
+            {
+                string query = "SELECT COUNT(*) AS NumeroDeEmpleados FROM Empleado WHERE GranjaId = @GranjaId";
+                int numeroDeEmpleados = conn.ExecuteScalar<int>(query, new { GranjaId = granjaId });
+                return numeroDeEmpleados;
+            }
+        }
+
         public Empleado GetEmpleadoPorId(int EmpleadoId)
         {
             Empleado empleado = null;

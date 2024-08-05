@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using ProyectoAvicola.Datos.Interfaces;
+using ProyectoAvicola.Entidades.Dtos;
 using ProyectoAvicola.Entidades.Entidades;
 using System;
 using System.Collections.Generic;
@@ -78,6 +79,18 @@ namespace ProyectoAvicola.Datos.Repositorios
                 lista = conn.Query<Alimento>(selectQuery).ToList();
             }
             return lista;
+        }
+
+        public List<AlimentoDto> GetAlimentosPorDetalleGalponId(int detalleGalponId)
+        {
+            using (var conn = new SqlConnection(cadenaConexion))
+            {
+                string query = @"SELECT a.TipoAlimento, dga.Cantidad, dga.Fecha
+                         FROM DetalleGalpon_Alimento dga
+                         INNER JOIN Alimento a ON dga.AlimentoId = a.AlimentoId
+                         WHERE dga.DetalleGalponId = @DetalleGalponId";
+                return conn.Query<AlimentoDto>(query, new { DetalleGalponId = detalleGalponId }).ToList();
+            }
         }
 
         public int GetCantidad()

@@ -26,7 +26,6 @@ namespace ProyectoAvicola.Servicios.Servicios
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

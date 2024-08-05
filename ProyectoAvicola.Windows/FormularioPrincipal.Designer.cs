@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormularioPrincipal));
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             toolStrip1 = new ToolStrip();
             DropDownButtonGranja = new ToolStripDropDownButton();
             listarToolStripMenuItem6 = new ToolStripMenuItem();
@@ -92,7 +92,7 @@
             toolStrip1.Items.AddRange(new ToolStripItem[] { DropDownButtonGranja, toolStripSeparator1, DropDownButtonGalpones, toolStripSeparator2, DropDownButtonEmpleados, toolStripSeparator3, DropDownButtonProveedores, toolStripSeparator4, DropDownButtonTransacciones, toolStripSeparator5, DropDownButtonAlimento, toolStripSeparator6, DropDownButtonMedicamento, toolStripSeparator7, DropDownButtonLocalidades, toolStripSeparator8, ButtonRefrescar });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(881, 40);
+            toolStrip1.Size = new Size(834, 40);
             toolStrip1.TabIndex = 2;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -156,28 +156,28 @@
             // listarToolStripMenuItem
             // 
             listarToolStripMenuItem.Name = "listarToolStripMenuItem";
-            listarToolStripMenuItem.Size = new Size(180, 22);
+            listarToolStripMenuItem.Size = new Size(116, 22);
             listarToolStripMenuItem.Text = "Listar";
             listarToolStripMenuItem.Click += listarToolStripMenuItem_Click;
             // 
             // nuevoToolStripMenuItem1
             // 
             nuevoToolStripMenuItem1.Name = "nuevoToolStripMenuItem1";
-            nuevoToolStripMenuItem1.Size = new Size(180, 22);
+            nuevoToolStripMenuItem1.Size = new Size(116, 22);
             nuevoToolStripMenuItem1.Text = "Nuevo";
             nuevoToolStripMenuItem1.Click += nuevoToolStripMenuItem1_Click;
             // 
             // editarToolStripMenuItem1
             // 
             editarToolStripMenuItem1.Name = "editarToolStripMenuItem1";
-            editarToolStripMenuItem1.Size = new Size(180, 22);
+            editarToolStripMenuItem1.Size = new Size(116, 22);
             editarToolStripMenuItem1.Text = "Editar";
             editarToolStripMenuItem1.Click += editarToolStripMenuItem1_Click;
             // 
             // borrarToolStripMenuItem1
             // 
             borrarToolStripMenuItem1.Name = "borrarToolStripMenuItem1";
-            borrarToolStripMenuItem1.Size = new Size(180, 22);
+            borrarToolStripMenuItem1.Size = new Size(116, 22);
             borrarToolStripMenuItem1.Text = "Borrar";
             borrarToolStripMenuItem1.Click += borrarToolStripMenuItem1_Click;
             // 
@@ -473,14 +473,14 @@
             // 
             DgvDatos.AllowUserToAddRows = false;
             DgvDatos.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.TopLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            DgvDatos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            DgvDatos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             DgvDatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DgvDatos.Dock = DockStyle.Fill;
             DgvDatos.Location = new Point(0, 0);
@@ -495,7 +495,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(881, 473);
+            ClientSize = new Size(834, 285);
             Controls.Add(panel1);
             Controls.Add(toolStrip1);
             Name = "FormularioPrincipal";

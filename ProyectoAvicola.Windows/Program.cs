@@ -11,7 +11,8 @@ namespace ProyectoAvicola.Windows
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new FormularioPrincipal());
+            //Application.Run(new FormularioPrincipal());
+            Application.Run(new Inicio());
         }
     }
 }

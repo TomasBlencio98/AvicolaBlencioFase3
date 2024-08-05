@@ -3,20 +3,21 @@ using ProyectoAvicola.Datos.Repositorios;
 using ProyectoAvicola.Entidades.Dtos;
 using ProyectoAvicola.Entidades.Entidades;
 using ProyectoAvicola.Servicios.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProyectoAvicola.Servicios.Servicios
 {
     public class ServicioGranjas : IServicioGranjas
     {
         private readonly IRepositorioGranjas repositorioGranjas;
+        private readonly IRepositorioGalpones repositorioGalpones;
+        private readonly IRepositorioEmpleados repositorioEmpleados;
+        private readonly IRepositorioProveedores repositorioProveedores;
         public ServicioGranjas()
         {
             repositorioGranjas = new RepositorioGranjas();
+            repositorioGalpones = new RepositorioGalpones();
+            repositorioEmpleados = new RepositorioEmpleados();
+            repositorioProveedores = new RepositorioProveedores();
         }
         public void Borrar(int GranjaId)
         {
@@ -61,7 +62,17 @@ namespace ProyectoAvicola.Servicios.Servicios
         {
             try
             {
-                return repositorioGranjas.GetGranjas();
+                var listaGranjas = repositorioGranjas.GetGranjas();
+                foreach (var granja in listaGranjas)
+                {
+                    granja.NumeroDeGalpones = repositorioGalpones
+                        .GetCantidadGalponesPorGranja(granja.GranjaId);
+                    granja.NumeroDeEmpleados = repositorioEmpleados
+                        .GetCantidadEmpleadosPorGranja(granja.GranjaId);
+                    granja.NumeroDeProveedores = repositorioProveedores
+                        .GetCantidadProveedoresPorGranja(granja.GranjaId);
+                }
+                return listaGranjas;
             }
             catch (Exception)
             {
@@ -87,7 +98,7 @@ namespace ProyectoAvicola.Servicios.Servicios
         {
             try
             {
-                if (Granja.GranjaId==0)
+                if (Granja.GranjaId == 0)
                 {
                     repositorioGranjas.Agregar(Granja);
                 }

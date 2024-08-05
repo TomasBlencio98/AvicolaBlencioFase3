@@ -17,5 +17,11 @@ namespace ProyectoAvicola.Datos.Interfaces
         List<ProveedorDto> GetProveedores();
         bool Existe(Proveedor proveedor);
         Proveedor GetProveedorPorId(int proveedorId);
+        int GetCantidadProveedoresPorGranja(int granjaId);
+        int GetCantidadGranjasPorProveedor(int proveedorId);
+        List<Granja> GetGranjasPorProveedor(int proveedorId);
+        bool ExisteRelacion(int proveedorId, int granjaId);
+        void AsignarGranjaAProveedor(int proveedorId, int granjaId);
+        void QuitarGranjaDeProveedor(int proveedorId, int granjaId);
     }
 }

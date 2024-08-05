@@ -50,6 +50,7 @@ namespace ProyectoAvicola.Windows.Formularios.FrmAE
                 {
                     galpon = new Galpon();
                 }
+                galpon.NombreGalpon = TexBoxNombreGalpon.Text;
                 galpon.Capacidad = int.Parse(TextBoxCapacidad.Text);
                 galpon.GranjaId = (int)ComboBoxGranjas.SelectedValue;
 
@@ -69,6 +70,11 @@ namespace ProyectoAvicola.Windows.Formularios.FrmAE
             if (ComboBoxGranjas.SelectedIndex == 0)
             {
                 errorProvider1.SetError(ComboBoxGranjas, "Debe seleccionar una Granja");
+                val = false;
+            }
+            if (string.IsNullOrEmpty(TexBoxNombreGalpon.Text))
+            {
+                errorProvider1.SetError(TexBoxNombreGalpon, "Debe ingresar un valor para este campo");
                 val = false;
             }
             return val;

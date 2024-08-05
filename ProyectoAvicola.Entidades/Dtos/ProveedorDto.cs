@@ -20,6 +20,7 @@ namespace ProyectoAvicola.Entidades.Dtos
         public string Telefono { get; set; }
         [DisplayName("Localidad")]
         public string NombreLocalidad { get; set; }
+        public int GranjasAsociadas { get; set; }
         public object Clone()
         {
             return this.MemberwiseClone();

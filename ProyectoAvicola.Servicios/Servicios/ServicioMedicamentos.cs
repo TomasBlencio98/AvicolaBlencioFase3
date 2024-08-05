@@ -1,5 +1,6 @@
 ﻿using ProyectoAvicola.Datos.Interfaces;
 using ProyectoAvicola.Datos.Repositorios;
+using ProyectoAvicola.Entidades.Dtos;
 using ProyectoAvicola.Entidades.Entidades;
 using ProyectoAvicola.Servicios.Interfaces;
 using System;
@@ -61,6 +62,20 @@ namespace ProyectoAvicola.Servicios.Servicios
             try
             {
                 return repositorioMedicamentos.GetMedicamentos();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public List<MedicamentoDto> GetMedicamentosPorDetalleGalponId(int detalleGalponId)
+        {
+            try
+            {
+                return repositorioMedicamentos
+                    .GetMedicamentosPorDetalleGalponId(detalleGalponId);
             }
             catch (Exception)
             {

@@ -16,5 +16,7 @@ namespace ProyectoAvicola.Servicios.Interfaces
         List<GalponDto> GetGalpones();
         bool Existe(Galpon galpon);
         Galpon GetGalponesPorId(int GalponId);
+        List<DetalleGalponDto> GetDetalleGalpon(int granjaId);
+        List<GalponDto> GetGalponesPorGranjaId(int granjaId);
     }
 }

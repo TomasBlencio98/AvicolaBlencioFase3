@@ -45,6 +45,18 @@ namespace ProyectoAvicola.Servicios.Servicios
             }
         }
 
+        public List<DetalleGalponDto> GetDetalleGalpon(int galponId)
+        {
+            try
+            {
+                return repositorioGalpones.GetDetalleGalpon(galponId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public int GetCantidad()
         {
             try
@@ -102,6 +114,11 @@ namespace ProyectoAvicola.Servicios.Servicios
 
                 throw;
             }
+        }
+
+        public List<GalponDto> GetGalponesPorGranjaId(int granjaId)
+        {
+            return repositorioGalpones.GetGalponesPorGranjaId(granjaId);
         }
     }
 }

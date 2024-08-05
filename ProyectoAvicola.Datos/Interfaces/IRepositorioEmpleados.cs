@@ -17,5 +17,6 @@ namespace ProyectoAvicola.Datos.Interfaces
         List<EmpleadoDto> GetEmpleados();
         bool Existe(Empleado empleado);
         Empleado GetEmpleadoPorId(int EmpleadoId);
+        int GetCantidadEmpleadosPorGranja(int granjaId);
     }
 }

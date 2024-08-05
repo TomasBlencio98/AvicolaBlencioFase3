@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoAvicola.Entidades.Entidades
 {
-    public class Detalle_Galpon
+    public class Detalle_Galpon:ICloneable
     {
         public int DetalleGalponId { get; set; }
         public int GalponId { get; set; }
@@ -14,5 +14,10 @@ namespace ProyectoAvicola.Entidades.Entidades
         public DateTime FechaIngreso { get; set; }
         public DateTime FechaEgreso { get; set; }
         public int TotalIngreso { get; set; }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }

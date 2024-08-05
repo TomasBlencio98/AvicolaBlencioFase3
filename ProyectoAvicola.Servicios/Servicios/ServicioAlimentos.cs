@@ -1,5 +1,6 @@
 ﻿using ProyectoAvicola.Datos.Interfaces;
 using ProyectoAvicola.Datos.Repositorios;
+using ProyectoAvicola.Entidades.Dtos;
 using ProyectoAvicola.Entidades.Entidades;
 using ProyectoAvicola.Servicios.Interfaces;
 using System;
@@ -48,6 +49,20 @@ namespace ProyectoAvicola.Servicios.Servicios
             try
             {
                 return repositorioAlimentos.GetAlimentos();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public List<AlimentoDto> GetAlimentosPorDetalleGalponId(int detalleGalponId)
+        {
+            try
+            {
+                return repositorioAlimentos.
+                    GetAlimentosPorDetalleGalponId(detalleGalponId);
             }
             catch (Exception)
             {

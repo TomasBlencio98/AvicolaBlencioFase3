@@ -18,6 +18,22 @@ namespace ProyectoAvicola.Servicios.Servicios
         {
             repositorioProveedores = new RepositorioProveedores();
         }
+
+        public void AsignarGranjaAProveedor(int proveedorId, int granjaId)
+        {
+            try
+            {
+                if (!repositorioProveedores.ExisteRelacion(proveedorId, granjaId))
+                {
+                    repositorioProveedores.AsignarGranjaAProveedor(proveedorId, granjaId);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public void Borrar(int ProveedorId)
         {
             try
@@ -44,16 +60,32 @@ namespace ProyectoAvicola.Servicios.Servicios
             }
         }
 
+        public bool ExisteRelacion(int proveedorId, int granjaId)
+        {
+            return repositorioProveedores.ExisteRelacion(proveedorId, granjaId);
+        }
+
         public int GetCantidad()
         {
             throw new NotImplementedException();
+        }
+
+        public List<Granja> GetGranjasPorProveedor(int proveedorId)
+        {
+            return repositorioProveedores.GetGranjasPorProveedor(proveedorId);
         }
 
         public List<ProveedorDto> GetProveedores()
         {
             try
             {
-                return repositorioProveedores.GetProveedores();
+                var listaProveedores = repositorioProveedores.GetProveedores();
+                foreach (var proveedor in listaProveedores)
+                {
+                    proveedor.GranjasAsociadas = repositorioProveedores
+                        .GetCantidadGranjasPorProveedor(proveedor.ProveedorId);
+                }
+                return listaProveedores;
             }
             catch (Exception)
             {
@@ -93,6 +125,11 @@ namespace ProyectoAvicola.Servicios.Servicios
 
                 throw;
             }
+        }
+
+        public void QuitarGranjaDeProveedor(int proveedorId, int granjaId)
+        {
+            repositorioProveedores.QuitarGranjaDeProveedor(proveedorId, granjaId);
         }
     }
 }

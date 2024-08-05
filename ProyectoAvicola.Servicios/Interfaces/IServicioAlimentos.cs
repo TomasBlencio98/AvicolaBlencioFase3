@@ -1,4 +1,5 @@
-﻿using ProyectoAvicola.Entidades.Entidades;
+﻿using ProyectoAvicola.Entidades.Dtos;
+using ProyectoAvicola.Entidades.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace ProyectoAvicola.Servicios.Interfaces
         int GetCantidad();
         List<Alimento> GetAlimentos();
         bool Existe(Alimento alimento);
+        List<AlimentoDto> GetAlimentosPorDetalleGalponId(int detalleGalponId);
     }
 }

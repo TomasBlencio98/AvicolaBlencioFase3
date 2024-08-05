@@ -16,5 +16,9 @@ namespace ProyectoAvicola.Servicios.Interfaces
         List<ProveedorDto> GetProveedores();
         bool Existe(Proveedor proveedor);
         Proveedor GetProveedorPorId(int proveedorId);
+        List<Granja> GetGranjasPorProveedor(int proveedorId);
+        void AsignarGranjaAProveedor(int proveedorId, int granjaId);
+        bool ExisteRelacion(int proveedorId, int granjaId);
+        void QuitarGranjaDeProveedor(int proveedorId, int granjaId);
     }
 }

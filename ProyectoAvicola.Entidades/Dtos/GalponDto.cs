@@ -15,7 +15,7 @@ namespace ProyectoAvicola.Entidades.Dtos
         public string NombreGranja { get; set; }
         [DisplayName("Capacidad")]
         public int Capacidad { get; set; }
-
+        public string  NombreGalpon { get; set; }
         public object Clone()
         {
             return this.MemberwiseClone(); 

@@ -25,7 +25,7 @@ namespace ProyectoAvicola.Datos.Repositorios
             using (var conn = new SqlConnection(cadenaConexion))
             {
                 string insertQuery = @"insert into Galpon 
-                (GranjaId, Capacidad) values (@GranjaId, @Capacidad); 
+                (GranjaId, Capacidad, NombreGalpon) values (@GranjaId, @Capacidad, @NombreGalpon); 
                 SELECT SCOPE_IDENTITY()";
                 int id = conn.QuerySingle<int>(insertQuery, galpon);
                 galpon.GalponId = id;
@@ -46,7 +46,7 @@ namespace ProyectoAvicola.Datos.Repositorios
             using (var conn = new SqlConnection(cadenaConexion))
             {
                 string updateQuery = @"update Galpon set 
-                GranjaId=@GranjaId, Capacidad=@Capacidad 
+                GranjaId=@GranjaId, Capacidad=@Capacidad, NombreGalpon=@NombreGalpon 
                 where GalponId=@GalponId";
                 conn.Execute(updateQuery, galpon);
             }
@@ -61,19 +61,33 @@ namespace ProyectoAvicola.Datos.Repositorios
                 if (galpon.GalponId == 0)
                 {
                     selectQuery = @"select count(*) from Galpon 
-                    where GranjaId=@GranjaId and Capacidad=@Capacidad";
+                    where GranjaId=@GranjaId and Capacidad=@Capacidad and NombreGalpon=@NombreGalpon";
                     cantidad = conn.ExecuteScalar<int>(selectQuery, galpon);
                 }
                 else
                 {
                     selectQuery = @"select count(*) from Galpon 
-                    where GranjaId=@GranjaId and Capacidad=@Capacidad and GalponId!=@GalponId";
+                    where GranjaId=@GranjaId and Capacidad=@Capacidad and NombreGalpon=@NombreGalpon and GalponId!=@GalponId";
                     cantidad = conn.ExecuteScalar<int>(selectQuery, galpon);
                 }
             }
             return cantidad > 0;
         }
 
+        public List<DetalleGalponDto> GetDetalleGalpon(int galponId)
+        {
+            using (var conn = new SqlConnection(cadenaConexion))
+            {
+                string query = @"SELECT dg.DetalleGalponId, ga.GalponId, 
+                         ga.NombreGalpon, ga.Capacidad, gr.NombreGranja, gr.GranjaId, 
+                            dg.FechaIngreso, dg.FechaEgreso, dg.TotalIngreso
+                         FROM Detalle_Galpon dg
+                         INNER JOIN Galpon ga ON dg.GalponId = ga.GalponId
+                         INNER JOIN Granja gr ON ga.GranjaId = gr.GranjaId
+                         WHERE ga.GalponId = @GalponId";
+                return conn.Query<DetalleGalponDto>(query, new { GalponId = galponId }).ToList();
+            }
+        }
         public int GetCantidad()
         {
             int cantidad = 0;
@@ -85,14 +99,27 @@ namespace ProyectoAvicola.Datos.Repositorios
             return cantidad;
         }
 
+        public int GetCantidadGalponesPorGranja(int granjaId)
+        {
+            using (var conn = new SqlConnection(cadenaConexion))
+            {
+                string query = "SELECT COUNT(*) AS NumeroDeGalpones FROM Galpon WHERE GranjaId = @GranjaId";
+                int numeroDeGalpones = conn.ExecuteScalar<int>(query, new { GranjaId = granjaId });
+                return numeroDeGalpones;
+            }
+        }
+
         public List<GalponDto> GetGalpones()
         {
             List<GalponDto> lista = new List<GalponDto>();
             using (var conn = new SqlConnection(cadenaConexion))
             {
-                string selectQuery = @"select ga.GalponId, 
-                gr.NombreGranja, ga.Capacidad from Galpon ga 
-                inner join Granja gr on ga.GranjaId=gr.GranjaId";
+                string selectQuery = 
+                    @"SELECT ga.GalponId, gr.NombreGranja, 
+                     ga.Capacidad, ga.NombreGalpon 
+                     FROM Galpon ga 
+                     INNER JOIN Granja gr ON ga.GranjaId = gr.GranjaId
+                     ORDER BY gr.NombreGranja, ga.NombreGalpon";
                 lista = conn.Query<GalponDto>(selectQuery).ToList();
             }
             return lista;
@@ -104,10 +131,23 @@ namespace ProyectoAvicola.Datos.Repositorios
             using (var conn = new SqlConnection(cadenaConexion))
             {
                 string selectQuery = @"select GalponId, GranjaId, 
-                Capacidad from Galpon where GalponId=@GalponId";
+                Capacidad, NombreGalpon from Galpon where GalponId=@GalponId";
                 galpon = conn.QuerySingleOrDefault<Galpon>(selectQuery, new { GalponId });
             }
             return galpon;
+        }
+
+        public List<GalponDto> GetGalponesPorGranjaId(int granjaId)
+        {
+            using (var conn = new SqlConnection(cadenaConexion))
+            {
+                string query = @"SELECT ga.GalponId, ga.GranjaId, ga.NombreGalpon, ga.Capacidad, gr.NombreGranja
+                         FROM Galpon ga
+                         INNER JOIN Granja gr ON ga.GranjaId = gr.GranjaId
+                         WHERE ga.GranjaId = @GranjaId
+                         ORDER BY ga.NombreGalpon";
+                return conn.Query<GalponDto>(query, new { GranjaId = granjaId }).ToList();
+            }
         }
     }
 }

@@ -11,10 +11,11 @@ namespace ProyectoAvicola.Entidades.Entidades
         public int GalponId { get; set; }
         public int GranjaId { get; set; }
         public int Capacidad { get; set; }
+        public string? NombreGalpon { get; set; }
 
         public object Clone()
         {
-            throw new NotImplementedException();
+            return this.MemberwiseClone();
         }
     }
 }

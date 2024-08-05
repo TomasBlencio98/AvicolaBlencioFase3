@@ -1,4 +1,5 @@
-﻿using ProyectoAvicola.Entidades.Entidades;
+﻿using ProyectoAvicola.Entidades.Dtos;
+using ProyectoAvicola.Entidades.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,6 @@ namespace ProyectoAvicola.Datos.Interfaces
         int GetCantidad();
         List<Medicamento> GetMedicamentos();
         bool Existe(Medicamento medicamento);
+        List<MedicamentoDto> GetMedicamentosPorDetalleGalponId(int detalleGalponId);
     }
 }
